@@ -42,31 +42,31 @@ public:
     }
 
 private:
-    Interface<InterfaceType> & interface()
+    Interface<InterfaceType> & findInterface() const
     {
         return GlobalRegistry::instance().findInterface<InterfaceType>();
     }
 
-    std::shared_ptr<Detail::CycleGuard> createCycleGuard()
+    std::shared_ptr<Detail::CycleGuard> createCycleGuard() const
     {
-        return interface().createCycleGuard();
+        return findInterface().createCycleGuard();
     }
 
-    template<typename Factory> Factory & factory()
+    template<typename Factory> Factory & factory() const
     {
-        Interface<InterfaceType> & iface = GlobalRegistry::instance().findInterface<InterfaceType>();
+        Interface<InterfaceType> & iface = findInterface();
 
         try
         {
-            Factory & factory = dynamic_cast<Factory&>(*iface.get_factory());
+            Factory & factory = dynamic_cast<Factory&>(*iface.getFactory());
             return factory;
         }
         catch (const std::bad_cast &)
         {
-            CAKE_DEPENDENCY_INJECTION_EXCEPTION(what << "inject declaration mismatch: inject type: " 
-                                                     << CAKE_DEPENDENCY_INJECTION_TYPENAME(*this) 
-                                                     << ", registered factory: " 
-                                                     << iface.get_factory()->describe());
+            CAKE_DEPENDENCY_INJECTION_EXCEPTION(what << "inject declaration mismatch: inject type: "
+                                                     << CAKE_DEPENDENCY_INJECTION_TYPENAME(*this)
+                                                     << ", registered factory: "
+                                                     << iface.getFactory()->describe());
         }
     }
 

@@ -69,7 +69,7 @@ public:
     {
         // TODO: make it lazy, otherwise we can get troubles when factory is
         // using inject by itself
-        m_factory = std::shared_ptr<IFactory>(new Factory()); 
+        m_factory = std::shared_ptr<IFactory>(new Factory());
     }
 
     void useFactory(std::shared_ptr<IFactory> factory)
@@ -77,7 +77,7 @@ public:
         m_factory = factory;
     }
 
-    std::shared_ptr<IFactory> get_factory()
+    std::shared_ptr<IFactory> getFactory()
     {
         if (!m_factory.get())
         {
