@@ -17,13 +17,13 @@ public:
     Inject()
     {
         std::shared_ptr<Detail::CycleGuard> g = createCycleGuard();
-        m_object = factory<Factory<InterfaceType> >().create();
+        m_object = findFactory<Factory<InterfaceType> >().create();
     }
 
     Inject(Arg1 arg1)
     {
         std::shared_ptr<Detail::CycleGuard> g = createCycleGuard();
-        m_object = factory<Factory<InterfaceType, Arg1> >().create(arg1);
+        m_object = findFactory<Factory<InterfaceType, Arg1> >().create(arg1);
     }
 
     InterfaceType * operator->()
@@ -52,21 +52,20 @@ private:
         return findInterface().createCycleGuard();
     }
 
-    template<typename Factory> Factory & factory() const
+    template<typename FactoryType> FactoryType & findFactory() const
     {
-        Interface<InterfaceType> & iface = findInterface();
+        auto & interface = findInterface();
 
         try
         {
-            Factory & factory = dynamic_cast<Factory&>(*iface.getFactory());
-            return factory;
+            return dynamic_cast<FactoryType&>(*interface.getFactory());
         }
         catch (const std::bad_cast &)
         {
             CAKE_DEPENDENCY_INJECTION_EXCEPTION(what << "inject declaration mismatch: inject type: "
                                                      << CAKE_DEPENDENCY_INJECTION_TYPENAME(*this)
                                                      << ", registered factory: "
-                                                     << iface.getFactory()->describe());
+                                                     << interface.getFactory()->describe());
         }
     }
 
