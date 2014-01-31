@@ -83,3 +83,18 @@ TEST(DependencyInjectionTest, DetectCycle)
     EXPECT_ANY_THROW(CycleA a);
 }
 
+struct ServiceFactory : public Factory<IProvider>
+{
+    std::shared_ptr<IProvider> create()
+    {
+        return std::make_shared<ConcreteProvider>();
+    }
+};
+
+TEST(DependencyInjectionTest, InjectByFactory)
+{
+    Registry r;
+    r.forInterface<IProvider>().useFactory<ServiceFactory>();
+
+    User user;
+}
