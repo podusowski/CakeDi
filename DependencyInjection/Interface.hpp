@@ -15,7 +15,7 @@ namespace DependencyInjection
 
 namespace Detail
 {
-    class CycleGuard 
+    class CycleGuard
     {
     public:
         CycleGuard(unsigned & counter, const std::type_info & type) : m_counter(counter)
@@ -32,7 +32,7 @@ namespace Detail
         }
 
     private:
-        unsigned & m_counter; 
+        unsigned & m_counter;
     };
 }
 
@@ -57,12 +57,12 @@ public:
 
     template<typename Implementation> void use()
     {
-        m_factory.reset(new GenericFactory0<InterfaceType, Implementation>());
+        m_factory = std::make_shared<GenericFactory0<InterfaceType, Implementation>>();
     }
 
     void use(std::shared_ptr<InterfaceType> instance)
     {
-        m_factory = std::shared_ptr<IFactory>(new InstanceFactory<InterfaceType>(instance));
+        m_factory = std::make_shared<InstanceFactory<InterfaceType>>(instance);
     }
 
     template<typename Factory> void useFactory()
