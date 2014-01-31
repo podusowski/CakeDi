@@ -16,13 +16,13 @@ template<typename InterfaceType, typename Arg1 = Detail::NullType> class Inject
 public:
     Inject()
     {
-        std::shared_ptr<Detail::CycleGuard> g = createCycleGuard();
+        auto g = createCycleGuard();
         m_object = findFactory<Factory<InterfaceType> >().create();
     }
 
     Inject(Arg1 arg1)
     {
-        std::shared_ptr<Detail::CycleGuard> g = createCycleGuard();
+        auto g = createCycleGuard();
         m_object = findFactory<Factory<InterfaceType, Arg1> >().create(arg1);
     }
 
