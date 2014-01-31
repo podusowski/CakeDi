@@ -10,10 +10,10 @@ namespace DependencyInjection
 {
 
 template<typename Interface>
-class instance_factory : public Factory<Interface>
+class InstanceFactory : public Factory<Interface>
 {
 public:
-    instance_factory(std::shared_ptr<Interface> instance) :
+    InstanceFactory(std::shared_ptr<Interface> instance) :
         m_instance(instance)
     {
     }

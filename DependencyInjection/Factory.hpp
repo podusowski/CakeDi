@@ -10,19 +10,15 @@ namespace Cake
 namespace DependencyInjection
 {
 
-class IFactory 
+class IFactory
 {
 public:
-    virtual std::string describe()
-    {
-        return "abstract_factory";
-    }
-
+    virtual std::string describe() = 0;
     virtual ~IFactory() {}
 };
 
 template<typename Interface, typename Arg1 = Detail::NullType>
-class Factory : public IFactory 
+class Factory : public IFactory
 {
 public:
     virtual std::shared_ptr<Interface> create()

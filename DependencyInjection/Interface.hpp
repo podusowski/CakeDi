@@ -46,7 +46,7 @@ public:
 template<typename InterfaceType> class Interface : public IInterface
 {
 public:
-    Interface() : m_cycle_counter(0)
+    Interface() : m_cycleCounter(0)
     {
     }
 
@@ -62,7 +62,7 @@ public:
 
     void use(std::shared_ptr<InterfaceType> instance)
     {
-        m_factory = std::shared_ptr<IFactory>(new instance_factory<InterfaceType>(instance));
+        m_factory = std::shared_ptr<IFactory>(new InstanceFactory<InterfaceType>(instance));
     }
 
     template<typename Factory> void useFactory()
@@ -88,12 +88,12 @@ public:
 
     std::shared_ptr<Detail::CycleGuard> createCycleGuard()
     {
-        return std::shared_ptr<Detail::CycleGuard>(new Detail::CycleGuard(m_cycle_counter, typeid(InterfaceType)));
+        return std::make_shared<Detail::CycleGuard>(m_cycleCounter, typeid(InterfaceType));
     }
 
 private:
     std::shared_ptr<IFactory> m_factory;
-    unsigned m_cycle_counter;
+    unsigned m_cycleCounter;
 };
 
 }
