@@ -1,0 +1,1 @@
+configuration __default compiler_flags(-Wall -pedantic -std=c++11)

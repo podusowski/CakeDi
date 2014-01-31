@@ -1,30 +1,11 @@
-## CakeDi
+#include <gtest/gtest.h>
 
-Dependency Injection framework for C++
-
-(old deepp: https://sourceforge.net/projects/deepp/)
-
-## Requrements
-
-* C++11
-* RTTI
-* exceptions
-
-## Compilation
-
-CakeDi is header only library so you don't have to compile anything.
-
-However, if you like to see the tests, you can use pake:
-
-`./pake.py -a`
-
-## Usage
-
-```
 #include <memory>
 
 #include "DependencyInjection/Registry.hpp"
 #include "DependencyInjection/Inject.hpp"
+
+using namespace testing;
 
 class IProvider
 {
@@ -54,10 +35,26 @@ private:
     Cake::DependencyInjection::Inject<IProvider> m_provider;
 };
 
-int main()
+TEST(DependencyInjectionTest, TestSimpleInject)
 {
     Cake::DependencyInjection::Registry registry;
     registry.forInterface<IProvider>().use(std::make_shared<ConcreteProvider>());
-}
-```
 
+    User user;
+    EXPECT_EQ(true, user.doStuff());
+}
+
+TEST(DependencyInjectionTest, UnknownInteface)
+{
+    EXPECT_ANY_THROW(User user);
+}
+
+TEST(DependencyInjectionTest, ScopedRegistry)
+{
+    {
+        Cake::DependencyInjection::Registry registry;
+        registry.forInterface<IProvider>().use(std::make_shared<ConcreteProvider>());
+    }
+
+    EXPECT_ANY_THROW(User user);
+}
