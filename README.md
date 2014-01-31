@@ -20,7 +20,7 @@ However, if you like to see the tests, you can use pake:
 
 ## Usage
 
-```
+```cpp
 #include <memory>
 
 #include "DependencyInjection/Registry.hpp"
