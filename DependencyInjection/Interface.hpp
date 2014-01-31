@@ -39,7 +39,7 @@ namespace Detail
 class IInterface
 {
 public:
-    virtual const std::type_info & get_interface() = 0;
+    virtual const std::type_info & getTypeInfo() = 0;
     virtual ~IInterface() {}
 };
 
@@ -50,7 +50,7 @@ public:
     {
     }
 
-    virtual const std::type_info & get_interface()
+    virtual const std::type_info & getTypeInfo()
     {
         return typeid(InterfaceType);
     }
