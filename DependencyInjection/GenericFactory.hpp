@@ -26,7 +26,7 @@ class GenericFactory1 : public Factory<Interface, Arg1>
 public:
     virtual std::shared_ptr<Interface> create(Arg1 arg1)
     {
-        return std::shared_ptr<Interface>(new Implementation(arg1));
+        return std::make_shared<Implementation>(arg1);
     }
 };
 
