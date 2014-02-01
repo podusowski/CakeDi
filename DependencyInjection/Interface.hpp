@@ -57,7 +57,7 @@ public:
 
     template<typename Implementation> void use()
     {
-        m_factory = std::make_shared<GenericFactory0<InterfaceType, Implementation>>();
+        m_factory = std::make_shared<GenericFactory<InterfaceType, Implementation>>();
     }
 
     void use(std::shared_ptr<InterfaceType> instance)

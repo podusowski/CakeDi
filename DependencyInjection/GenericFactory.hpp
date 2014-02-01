@@ -10,6 +10,15 @@ namespace Cake
 namespace DependencyInjection
 {
 
+template<typename Interface, typename Implementation, typename... Args> class GenericFactory : public Factory<Interface, Args...>
+{
+public:
+    std::shared_ptr<Interface> create(Args... args)
+    {
+        return std::make_shared<Implementation>(args...);
+    }
+};
+
 template<typename Interface, typename Implementation>
 class GenericFactory0 : public Factory<Interface>
 {

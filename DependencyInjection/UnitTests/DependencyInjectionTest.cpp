@@ -124,9 +124,17 @@ private:
 TEST(DependencyInjectionTest, ParametrizedClass)
 {
     Registry r;
-    r.forInterface<IParametrizedProvider>().useFactory<GenericFactory1<IParametrizedProvider, ConcreteParametrizedProvider, int> >();
+    r.forInterface<IParametrizedProvider>().useFactory<GenericFactory<IParametrizedProvider, ConcreteParametrizedProvider, int> >();
 
     Inject<IParametrizedProvider, int> provider(1);
     EXPECT_EQ(1, provider->foo());
 }
 
+TEST(DependencyInjectionTest, WrongParameterTypeInInject)
+{
+    Registry r;
+    r.forInterface<IParametrizedProvider>().useFactory<GenericFactory<IParametrizedProvider, ConcreteParametrizedProvider, int> >();
+
+    typedef Inject<IParametrizedProvider, std::string> InjectType;
+    EXPECT_ANY_THROW(InjectType provider("hello"));
+}
