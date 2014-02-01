@@ -98,3 +98,35 @@ TEST(DependencyInjectionTest, InjectByFactory)
 
     User user;
 }
+
+struct IParametrizedProvider
+{
+    virtual int foo() = 0;
+    virtual ~IParametrizedProvider() {}
+};
+
+struct ConcreteParametrizedProvider : public IParametrizedProvider
+{
+    ConcreteParametrizedProvider(int parameter) :
+        m_parameter(parameter)
+    {
+    }
+
+    int foo()
+    {
+        return m_parameter;
+    }
+
+private:
+    int m_parameter;
+};
+
+TEST(DependencyInjectionTest, ParametrizedClass)
+{
+    Registry r;
+    r.forInterface<IParametrizedProvider>().useFactory<GenericFactory1<IParametrizedProvider, ConcreteParametrizedProvider, int> >();
+
+    Inject<IParametrizedProvider, int> provider(1);
+    EXPECT_EQ(1, provider->foo());
+}
+
