@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include "Detail/NullType.hpp"
 #include "AbstractFactory.hpp"
 
 namespace Cake

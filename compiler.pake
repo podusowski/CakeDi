@@ -1,1 +1,2 @@
 configuration __default compiler_flags(-Wall -pedantic -std=c++11)
+configuration clang compiler(clang) compiler_flags(-Wall -pedantic -std=c++11)

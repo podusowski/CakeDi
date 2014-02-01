@@ -1,5 +1,6 @@
 append $sources "${gtest.__path}/mainUT.cpp"
 append $sources "UnitTests/DependencyInjectionTest.cpp"
+# append $sources "UnitTests/ProfileTest.cpp"
 
 append $include_dirs "${__path}"
 append $include_dirs "${__path}/.."

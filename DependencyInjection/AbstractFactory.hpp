@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include "Detail/NullType.hpp"
 #include "Detail/Exception.hpp"
 
 namespace Cake

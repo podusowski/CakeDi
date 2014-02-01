@@ -2,9 +2,8 @@
 
 #include <memory>
 
-#include "Registry.hpp"
+#include "GlobalRegistry.hpp"
 #include "Interface.hpp"
-#include "Detail/NullType.hpp"
 
 namespace Cake
 {
