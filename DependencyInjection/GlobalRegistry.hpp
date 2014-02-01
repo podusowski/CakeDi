@@ -62,7 +62,7 @@ template<typename InterfaceType> Interface<InterfaceType> & forInterface()
 
 template<typename InterfaceType, typename Implementation> void use()
 {
-    forInterface<InterfaceType>().use<Implementation>();
+    forInterface<InterfaceType>().template use<Implementation>();
 }
 
 inline void clear()
