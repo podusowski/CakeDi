@@ -11,19 +11,13 @@ namespace Cake
 namespace DependencyInjection
 {
 
-template<typename InterfaceType, typename Arg1 = Detail::NullType> class Inject
+template<typename InterfaceType, typename... Args> class Inject
 {
 public:
-    Inject()
+    Inject(Args... args)
     {
         auto g = createCycleGuard();
-        m_object = findFactory<Factory<InterfaceType> >().create();
-    }
-
-    Inject(Arg1 arg1)
-    {
-        auto g = createCycleGuard();
-        m_object = findFactory<Factory<InterfaceType, Arg1> >().create(arg1);
+        m_object = findFactory<AbstractFactory<InterfaceType, Args...>>().create(args...);
     }
 
     InterfaceType * operator->()

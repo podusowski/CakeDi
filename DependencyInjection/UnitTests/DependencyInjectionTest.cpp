@@ -83,7 +83,7 @@ TEST(DependencyInjectionTest, DetectCycle)
     EXPECT_ANY_THROW(CycleA a);
 }
 
-struct ServiceFactory : public Factory<IProvider>
+struct ServiceFactory : public AbstractFactory<IProvider>
 {
     std::shared_ptr<IProvider> create()
     {

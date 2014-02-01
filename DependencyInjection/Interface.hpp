@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Detail/Log.hpp"
-#include "Factory.hpp"
+#include "AbstractFactory.hpp"
 #include "GenericFactory.hpp"
 #include "InstanceFactory.hpp"
 #include "Detail/Exception.hpp"
@@ -65,11 +65,11 @@ public:
         m_factory = std::make_shared<InstanceFactory<InterfaceType>>(instance);
     }
 
-    template<typename Factory> void useFactory()
+    template<typename FactoryType> void useFactory()
     {
         // TODO: make it lazy, otherwise we can get troubles when factory is
         // using inject by itself
-        m_factory = std::make_shared<Factory>();
+        m_factory = std::make_shared<FactoryType>();
     }
 
     void useFactory(std::shared_ptr<IFactory> factory)
