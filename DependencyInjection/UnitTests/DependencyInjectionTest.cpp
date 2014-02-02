@@ -2,6 +2,11 @@
 
 #include <memory>
 
+/* windows.h, at least mingw version does that, so I've put it here
+ * because windows.h is used very often and Cake should compile with it
+ */
+#define interface struct
+
 #include "DependencyInjection/Registry.hpp"
 #include "DependencyInjection/Inject.hpp"
 
